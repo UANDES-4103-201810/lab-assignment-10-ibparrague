@@ -1,0 +1,54 @@
+<script>
+  window.fbAsyncInit = function() {
+    FB.init({
+      appId      : '{your-app-id}', 195729227720289
+      cookie     : true,
+      xfbml      : true,
+      version    : '{latest-api-version}'
+    });
+
+    FB.AppEvents.logPageView();
+
+  };
+
+  (function(d, s, id){
+     var js, fjs = d.getElementsByTagName(s)[0];
+     if (d.getElementById(id)) {return;}
+     js = d.createElement(s); js.id = id;
+     js.src = "https://connect.facebook.net/en_US/sdk.js";
+     fjs.parentNode.insertBefore(js, fjs);
+   }(document, 'script', 'facebook-jssdk'));
+</script>
+
+
+
+
+{
+    status: 'connected',
+    authResponse: {
+        accessToken: '...',
+        expiresIn:'...',
+        signedRequest:'...',
+        userID:'...'
+    }
+}
+
+
+El atributo onlogin del botón para configurar una devolución de llamada de JavaScript, que comprueba el estado de inicio de sesión y determina si la persona completó el proceso correctamente:
+
+
+<fb:login-button
+  scope="public_profile,email"
+  onlogin="checkLoginState();">
+</fb:login-button>
+
+
+Esta es la devolución de llamada. Llama a FB.getLoginStatus() para obtener el estado de inicio de sesión más reciente. (statusChangeCallback() es una función que forma parte del ejemplo que procesa la respuesta).
+
+function checkLoginState() {
+  FB.getLoginStatus(function(response) {
+    statusChangeCallback(response);
+  });
+}
+
+
